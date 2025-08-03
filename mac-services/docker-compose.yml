@@ -1,2 +1,52 @@
-# BluRay Converter - Mac Services
-# Docker Compose configuration for Mac mini worker deployment
+version: '3.8'
+
+services:
+  # Worker Service - Processes BluRay conversions
+  worker:
+    build: ./worker
+    container_name: bluray-worker
+    restart: always
+    ports:
+      - "${WORKER_PORT:-8000}:8000"
+    environment:
+      - NAS_IP=${NAS_IP}
+      - NAS_API_PORT=${NAS_API_PORT:-8080}
+      - MOUNT_POINT=${MOUNT_POINT:-/mnt/nas}
+      - SMB_USERNAME=${SMB_USERNAME}
+      - SMB_PASSWORD=${SMB_PASSWORD}
+      - SMB_SHARE_NAME=${SMB_SHARE_NAME:-video}
+      - FFMPEG_THREADS=${FFMPEG_THREADS:-0}
+      - FFMPEG_PRESET=${FFMPEG_PRESET:-slow}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - DRY_RUN=${DRY_RUN:-false}
+      - MOCK_MODE=${MOCK_MODE:-false}
+    volumes:
+      - ./volumes/logs:/app/logs
+      - nas_mount:/mnt/nas:shared
+      # Mount Docker socket for SMB mounting (if needed)
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    privileged: true  # Required for SMB mounting
+    networks:
+      - bluray-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          # Allow worker to use most of the system resources
+          memory: 8G
+        reservations:
+          memory: 2G
+
+networks:
+  bluray-network:
+    driver: bridge
+
+volumes:
+  nas_mount:
+    driver: local
+  logs_data:
+    driver: local

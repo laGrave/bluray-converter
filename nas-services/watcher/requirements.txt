@@ -1,1 +1,31 @@
 # BluRay Converter - Watcher Service Dependencies
+
+# Core framework
+fastapi==0.104.1
+uvicorn==0.24.0
+
+# Database
+sqlite3
+sqlalchemy==2.0.23
+
+# HTTP client for Mac mini communication
+httpx==0.25.2
+requests==2.31.0
+
+# Logging and configuration
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Async support
+asyncio-mqtt==0.16.1
+
+# File system monitoring
+watchdog==3.0.0
+
+# Date/time handling
+python-dateutil==2.8.2
+
+# Testing support
+pytest==7.4.3
+pytest-asyncio==0.21.1

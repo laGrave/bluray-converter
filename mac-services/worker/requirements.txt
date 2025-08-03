@@ -1,1 +1,40 @@
 # BluRay Converter - Worker Service Dependencies
+
+# Core framework
+fastapi==0.104.1
+uvicorn==0.24.0
+
+# HTTP client for NAS communication
+httpx==0.25.2
+requests==2.31.0
+
+# Configuration and validation
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# File operations and paths
+aiofiles==23.2.0
+pathlib2==2.3.7
+
+# SMB/CIFS client
+smbprotocol==1.12.0
+
+# Process management
+psutil==5.9.6
+
+# Video analysis
+pymediainfo==6.1.0
+
+# Progress tracking
+tqdm==4.66.1
+
+# Date/time handling
+python-dateutil==2.8.2
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+
+# Mock framework for testing
+unittest-mock==1.0.1
