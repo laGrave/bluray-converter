@@ -1,0 +1,84 @@
+# Environment files
+.env
+*.env.local
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Database files
+volumes/db/*.db
+volumes/db/*.db-journal
+volumes/db/*.db-shm
+volumes/db/*.db-wal
+
+# Log files
+volumes/logs/*.log
+*.log
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Node modules (for web-ui if needed)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# MacOS
+*.dmg
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Media files (for testing)
+*.mkv
+*.m2ts
+*.mpls

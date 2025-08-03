@@ -1,0 +1,3 @@
+# BluRay Converter - NAS Services
+# Docker Compose configuration for Synology NAS deployment
+# Contains: Watcher, API, Scheduler, Web UI services
