@@ -34,15 +34,21 @@
 - ✅ Mock режим и dry run для тестирования
 - ✅ Commit: `feat: Implement BluRay directory scanner`
 
+## ✅ Фаза 4: NAS Watcher Service (завершена)
+- ✅ mac_client.py - клиент для отправки задач на Mac mini
+- ✅ main.py - основной entry point для watcher service
+- ✅ Commit: `feat: Complete Phase 4 - NAS Watcher Service`
+
+## 🔄 Фаза 5: Mac Worker Service (в процессе)
+- ✅ bdmv_analyzer.py - анализ BDMV структуры и поиск основного плейлиста
+- ✅ ffmpeg_wrapper.py - обертка для FFmpeg с progress tracking
+- ⏳ processor.py - основная логика обработки
+- ⏳ nas_client.py - отправка статусов обратно на NAS
+- ⏳ main.py - FastAPI сервер для worker
+
 ## 🔄 Следующие шаги для продолжения:
 
-### Фаза 4 (продолжение): Завершить NAS Watcher сервис
-- ⏳ mac_client.py - клиент для отправки задач на Mac mini
-- ⏳ main.py - основной entry point для watcher service
-
-### Фаза 5: Mac Worker Service
-- ⏳ bdmv_analyzer.py - анализ BDMV структуры и поиск основного плейлиста  
-- ⏳ ffmpeg_wrapper.py - обертка для FFmpeg с progress tracking
+### Фаза 5 (продолжение): Mac Worker Service  
 - ⏳ processor.py - основная логика обработки
 - ⏳ nas_client.py - отправка статусов обратно на NAS
 - ⏳ main.py - FastAPI сервер для worker
