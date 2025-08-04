@@ -1,59 +1,59 @@
-# BluRay Converter - User Guide
+# BluRay Converter - Руководство пользователя
 
-Complete guide for daily operations of the BluRay Converter system.
+Полное руководство по ежедневному использованию системы BluRay Converter.
 
-## Table of Contents
+## Содержание
 
-1. [Daily Workflow](#daily-workflow)
-2. [Web Interface](#web-interface)
-3. [Adding Movies](#adding-movies)
-4. [Monitoring Progress](#monitoring-progress)
-5. [Managing Tasks](#managing-tasks)
-6. [Telegram Integration](#telegram-integration)
-7. [API Usage](#api-usage)
-8. [File Management](#file-management)
-9. [System Maintenance](#system-maintenance)
-10. [Best Practices](#best-practices)
+1. [Ежедневный рабочий процесс](#ежедневный-рабочий-процесс)
+2. [Веб-интерфейс](#веб-интерфейс)
+3. [Добавление фильмов](#добавление-фильмов)
+4. [Мониторинг прогресса](#мониторинг-прогресса)
+5. [Управление задачами](#управление-задачами)
+6. [Интеграция с Telegram](#интеграция-с-telegram)
+7. [Использование API](#использование-api)
+8. [Управление файлами](#управление-файлами)
+9. [Обслуживание системы](#обслуживание-системы)
+10. [Лучшие практики](#лучшие-практики)
 
-## Daily Workflow
+## Ежедневный рабочий процесс
 
-### Typical User Workflow
+### Типичный рабочий процесс пользователя
 
 ```mermaid
 graph TD
-    A[Copy BluRay to NAS] --> B[Automatic Scan at 3 AM]
-    B --> C[Task Created]
-    C --> D[Mac Processes Video]
-    D --> E[Notify via Telegram]
-    E --> F[Move to Processed Folder]
-    F --> G[Manual Move to Plex Library]
+    A[Копировать BluRay на NAS] --> B[Автоматическое сканирование в 3 утра]
+    B --> C[Создается задача]
+    C --> D[Mac обрабатывает видео]
+    D --> E[Уведомление через Telegram]
+    E --> F[Перемещение в папку Processed]
+    F --> G[Ручное перемещение в библиотеку Plex]
 ```
 
-### 1. Add New Movies
-Place BluRay folders in the raw directory:
+### 1. Добавление новых фильмов
+Поместите папки BluRay в директорию для сырых файлов:
 ```
 /volume1/video/Кино/BluRayRAW/
-└── New Movie (2023)/
+└── Новый Фильм (2023)/
     └── BDMV/
         ├── PLAYLIST/
         ├── STREAM/
         └── CLIPINF/
 ```
 
-### 2. Automatic Processing
-- System scans daily at 3 AM (configurable)
-- New movies are automatically detected
-- Processing starts on Mac mini
-- Progress notifications via Telegram
+### 2. Автоматическая обработка
+- Система сканирует ежедневно в 3 утра (настраивается)
+- Новые фильмы автоматически обнаруживаются
+- Обработка начинается на Mac mini
+- Уведомления о прогрессе через Telegram
 
-### 3. Manual Intervention
-- Check Web UI for status
-- Move completed files to Plex library
-- Monitor for any errors
+### 3. Ручное вмешательство
+- Проверяйте статус в веб-интерфейсе
+- Перемещайте готовые файлы в библиотеку Plex
+- Следите за ошибками
 
-## Web Interface
+## Веб-интерфейс
 
-Access the web interface at: `http://your-nas-ip:8081`
+Доступ к веб-интерфейсу: `http://your-nas-ip:8081`
 
 ### Dashboard Overview
 - **Task Queue**: Current and pending tasks

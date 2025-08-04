@@ -1,29 +1,29 @@
-# BluRay Converter - Setup Guide
+# BluRay Converter - Руководство по установке
 
-Complete installation and configuration guide for the BluRay Converter system.
+Полное руководство по установке и настройке системы BluRay Converter.
 
-## Table of Contents
+## Содержание
 
-1. [Overview](#overview)
-2. [Prerequisites](#prerequisites)
-3. [Network Setup](#network-setup)
-4. [NAS (Synology) Setup](#nas-synology-setup)
-5. [Mac mini Setup](#mac-mini-setup)
-6. [Configuration](#configuration)
-7. [Deployment](#deployment)
-8. [Testing](#testing)
-9. [First Run](#first-run)
-10. [Troubleshooting](#troubleshooting)
+1. [Обзор](#обзор)
+2. [Предварительные требования](#предварительные-требования)
+3. [Настройка сети](#настройка-сети)
+4. [Настройка NAS (Synology)](#настройка-nas-synology)
+5. [Настройка Mac mini](#настройка-mac-mini)
+6. [Конфигурация](#конфигурация)
+7. [Развертывание](#развертывание)
+8. [Тестирование](#тестирование)
+9. [Первый запуск](#первый-запуск)
+10. [Решение проблем](#решение-проблем)
 
-## Overview
+## Обзор
 
-The BluRay Converter system consists of two main components:
-- **NAS Services** (Synology): Directory monitoring, task management, web UI
-- **Mac Worker** (Apple Silicon): Video processing with FFmpeg
+Система BluRay Converter состоит из двух основных компонентов:
+- **NAS Сервисы** (Synology): Мониторинг директорий, управление задачами, веб-интерфейс
+- **Mac Worker** (Apple Silicon): Обработка видео с помощью FFmpeg
 
-### Architecture
+### Архитектура
 ```
-┌─────────────┐    Network    ┌──────────────┐
+┌─────────────┐    Сеть       ┌──────────────┐
 │   Synology  │◄─────────────►│   Mac mini   │
 │     NAS     │   SMB/HTTP    │ Apple Silicon│
 │             │               │              │
@@ -34,28 +34,28 @@ The BluRay Converter system consists of two main components:
 └─────────────┘               └──────────────┘
 ```
 
-## Prerequisites
+## Предварительные требования
 
-### Hardware Requirements
-- **Synology NAS**: Any model with Docker support (DSM 7.0+)
-- **Mac mini**: Apple Silicon (M1/M2/M3) recommended for optimal performance
-- **Network**: 1 Gbps local network between devices
+### Требования к оборудованию
+- **Synology NAS**: Любая модель с поддержкой Docker (DSM 7.0+)
+- **Mac mini**: Apple Silicon (M1/M2/M3) рекомендуется для оптимальной производительности
+- **Сеть**: Локальная сеть 1 Гбит/с между устройствами
 
-### Software Requirements
+### Требования к программному обеспечению
 
-#### On NAS (Synology)
-- DSM 7.0 or later
-- Docker package installed
-- SSH access enabled
-- At least 2GB free RAM
-- 10GB free storage for Docker images
+#### На NAS (Synology)
+- DSM 7.0 или новее
+- Установленный пакет Docker
+- Включенный SSH доступ
+- Минимум 2GB свободной RAM
+- 10GB свободного места для Docker образов
 
-#### On Mac mini
-- macOS 12.0 (Monterey) or later
-- Docker Desktop for Mac
-- Command Line Tools for Xcode
-- At least 8GB RAM (16GB recommended)
-- 50GB+ free storage for temporary files
+#### На Mac mini
+- macOS 12.0 (Monterey) или новее
+- Docker Desktop для Mac
+- Command Line Tools для Xcode
+- Минимум 8GB RAM (рекомендуется 16GB)
+- 50GB+ свободного места для временных файлов
 
 ## Network Setup
 
