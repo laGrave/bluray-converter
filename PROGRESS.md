@@ -39,19 +39,15 @@
 - ✅ main.py - основной entry point для watcher service
 - ✅ Commit: `feat: Complete Phase 4 - NAS Watcher Service`
 
-## 🔄 Фаза 5: Mac Worker Service (в процессе)
+## ✅ Фаза 5: Mac Worker Service (завершена)
 - ✅ bdmv_analyzer.py - анализ BDMV структуры и поиск основного плейлиста
 - ✅ ffmpeg_wrapper.py - обертка для FFmpeg с progress tracking
-- ⏳ processor.py - основная логика обработки
-- ⏳ nas_client.py - отправка статусов обратно на NAS
-- ⏳ main.py - FastAPI сервер для worker
+- ✅ processor.py - основная логика обработки
+- ✅ nas_client.py - отправка статусов обратно на NAS
+- ✅ main.py - FastAPI сервер для worker
+- ✅ Commit: `feat: Complete Phase 5 - Mac Worker Service`
 
 ## 🔄 Следующие шаги для продолжения:
-
-### Фаза 5 (продолжение): Mac Worker Service  
-- ⏳ processor.py - основная логика обработки
-- ⏳ nas_client.py - отправка статусов обратно на NAS
-- ⏳ main.py - FastAPI сервер для worker
 
 ### Фаза 6: API и Webhook
 - ⏳ FastAPI endpoints на NAS (routes.py, main.py)
