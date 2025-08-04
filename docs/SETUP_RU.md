@@ -13,7 +13,7 @@
 7. [Развертывание](#развертывание)
 8. [Тестирование](#тестирование)
 9. [Первый запуск](#первый-запуск)
-10. [Решение проблем](#решение-проблем)
+10. [Обслуживание и мониторинг](#обслуживание-и-мониторинг)
 
 ## Обзор
 
@@ -128,48 +128,48 @@ sudo chmod -R 775 /volume1/video/Кино/
 3. Включите службу SMB
 4. Установите права доступа для пользователя `bluray-worker`
 
-## Mac mini Setup
+## Настройка Mac mini
 
-### 1. Install Docker Desktop
+### 1. Установка Docker Desktop
 
-Download and install Docker Desktop for Mac:
+Скачайте и установите Docker Desktop для Mac:
 ```bash
-# Download from: https://docs.docker.com/desktop/install/mac-install/
-# Or install via Homebrew
+# Скачайте с: https://docs.docker.com/desktop/install/mac-install/
+# Или установите через Homebrew
 brew install --cask docker
 ```
 
-Start Docker Desktop and ensure it's running.
+Запустите Docker Desktop и убедитесь, что он работает.
 
-### 2. Install Command Line Tools
+### 2. Установка инструментов командной строки
 
 ```bash
 xcode-select --install
 ```
 
-### 3. Verify FFmpeg Support
+### 3. Проверка поддержки FFmpeg
 
-Docker will install FFmpeg, but you can test locally:
+Docker установит FFmpeg, но можете протестировать локально:
 ```bash
-# Install FFmpeg locally (optional)
+# Установка FFmpeg локально (необязательно)
 brew install ffmpeg
 
-# Test BluRay support
+# Тест поддержки BluRay
 ffmpeg -formats | grep -i bluray
 ```
 
-## Configuration
+## Конфигурация
 
-### 1. Clone the Repository
+### 1. Клонирование репозитория
 
-On both NAS and Mac mini:
+На обоих устройствах (NAS и Mac mini):
 ```bash
-# Clone the project
+# Клонирование проекта
 git clone https://github.com/user/bluray-converter.git
 cd bluray-converter
 ```
 
-### 2. Configure NAS Services
+### 2. Настройка NAS сервисов
 
 ```bash
 cd nas-services
@@ -177,41 +177,41 @@ cp .env.example .env
 nano .env
 ```
 
-Edit the `.env` file:
+Отредактируйте файл `.env`:
 ```bash
-# Network Configuration
+# Конфигурация сети
 MAC_MINI_IP=192.168.1.100
 MAC_MINI_PORT=8000
 NAS_IP=192.168.1.50
 NAS_PORT=8080
 WEB_UI_PORT=8081
 
-# Movie Directory Paths
+# Пути к директориям фильмов
 MOVIES_BASE_PATH=/volume1/video/Кино
 BLURAY_RAW_FOLDER=BluRayRAW
 BLURAY_PROCESSED_FOLDER=BluRayProcessed
 BLURAY_TEMP_FOLDER=BluRayTemp
 
-# SMB Configuration  
+# Конфигурация SMB  
 SMB_USERNAME=bluray-worker
 SMB_SHARE_NAME=video
 
-# Telegram Bot (Optional)
-TELEGRAM_BOT_TOKEN=your_bot_token_here
-TELEGRAM_CHAT_ID=your_chat_id_here
+# Telegram Bot (по желанию)
+TELEGRAM_BOT_TOKEN=ваш_токен_бота_здесь
+TELEGRAM_CHAT_ID=ваш_chat_id_здесь
 
-# Scheduling
-SCAN_SCHEDULE="0 3 * * *"  # Daily at 3 AM
+# Планирование
+SCAN_SCHEDULE="0 3 * * *"  # Ежедневно в 3 утра
 SCHEDULER_ENABLED=true
 
-# Database
+# База данных
 DB_CLEANUP_DAYS=60
 
-# Logging
+# Логирование
 LOG_LEVEL=INFO
 ```
 
-### 3. Configure Mac Services
+### 3. Настройка Mac сервисов
 
 ```bash
 cd mac-services  
@@ -219,127 +219,127 @@ cp .env.example .env
 nano .env
 ```
 
-Edit the `.env` file:
+Отредактируйте файл `.env`:
 ```bash
-# Network Configuration
+# Конфигурация сети
 NAS_IP=192.168.1.50
 NAS_API_PORT=8080
 WORKER_PORT=8000
 
-# SMB Configuration
+# Конфигурация SMB
 SMB_USERNAME=bluray-worker
-SMB_PASSWORD=your_secure_password_here
+SMB_PASSWORD=ваш_надежный_пароль_здесь
 
-# Mount Point
+# Точка монтирования
 MOUNT_POINT=/mnt/nas
 
-# FFmpeg Configuration
-FFMPEG_THREADS=0  # Auto-detect CPU cores
-FFMPEG_PRESET=slow  # Quality vs speed trade-off
+# Конфигурация FFmpeg
+FFMPEG_THREADS=0  # Автоопределение ядер CPU
+FFMPEG_PRESET=slow  # Компромисс качество/скорость
 
-# Processing
+# Обработка
 MAX_CONCURRENT_TASKS=1
 TEMP_CLEANUP=true
 
-# Logging
+# Логирование
 LOG_LEVEL=INFO
 ```
 
-### 4. Telegram Bot Setup (Optional)
+### 4. Настройка Telegram бота (по желанию)
 
-1. Create a bot with @BotFather on Telegram
-2. Get your bot token
-3. Find your chat ID by messaging the bot and checking:
+1. Создайте бота с @BotFather в Telegram
+2. Получите токен бота
+3. Найдите свой chat ID, отправив сообщение боту и проверив:
    ```bash
    curl https://api.telegram.org/bot<TOKEN>/getUpdates
    ```
 
-## Deployment
+## Развертывание
 
-### 1. Deploy NAS Services
+### 1. Развертывание NAS сервисов
 
-On the Synology NAS:
+На Synology NAS:
 ```bash
 cd bluray-converter
 ./scripts/deploy-nas.sh
 ```
 
-This script will:
-- Validate configuration
-- Create necessary directories
-- Build Docker images
-- Start all services
-- Run health checks
+Этот скрипт:
+- Проверит конфигурацию
+- Создаст необходимые директории
+- Соберет Docker образы
+- Запустит все сервисы
+- Выполнит проверки состояния
 
-### 2. Deploy Mac Worker
+### 2. Развертывание Mac Worker
 
-On the Mac mini:
+На Mac mini:
 ```bash
 cd bluray-converter
 ./scripts/deploy-mac.sh
 ```
 
-This script will:
-- Validate macOS environment
-- Test NAS connectivity
-- Build worker container
-- Start worker service
-- Test SMB mounting
+Этот скрипт:
+- Проверит среду macOS
+- Протестирует подключение к NAS
+- Соберет worker контейнер
+- Запустит worker сервис
+- Протестирует монтирование SMB
 
-### 3. Verify Deployment
+### 3. Проверка развертывания
 
-Run the connection test:
+Запустите тест подключения:
 ```bash
 ./scripts/test-connection.sh
 ```
 
-This will test:
-- Network connectivity
+Это протестирует:
+- Сетевое подключение
 - API endpoints
-- SMB access
-- Docker services
+- SMB доступ
+- Docker сервисы
 - End-to-end workflow
 
-## Testing
+## Тестирование
 
-### 1. Service Health Check
+### 1. Проверка состояния сервисов
 
 ```bash
-# Check NAS services
+# Проверка NAS сервисов
 curl http://192.168.1.50:8080/api/health
 
-# Check Mac worker
+# Проверка Mac worker
 curl http://192.168.1.100:8000/api/health
 
-# Check Web UI
+# Проверка Web UI
 open http://192.168.1.50:8081
 ```
 
-### 2. Manual Scan Test
+### 2. Тест ручного сканирования
 
 ```bash
-# Trigger a dry-run scan
+# Запуск сухого прогона сканирования
 curl -X POST http://192.168.1.50:8080/api/tasks/scan \
   -H "Content-Type: application/json" \
   -d '{"dry_run": true}'
 ```
 
-### 3. SMB Mount Test
+### 3. Тест SMB монтирования
 
-On Mac mini:
+На Mac mini:
 ```bash
-# Test SMB mounting
+# Тест SMB монтирования
 ./scripts/deploy-mac.sh mount-test
 ```
 
-## First Run
+## Первый запуск
 
-### 1. Prepare Test BluRay
+### 1. Подготовка тестового BluRay
 
-Place a BluRay movie folder in the raw directory:
+Поместите папку BluRay фильма в директорию raw:
 ```
 /volume1/video/Кино/BluRayRAW/
-└── Test Movie (2023)/
+└── Тестовый Фильм (2023)/
     └── BDMV/
         ├── PLAYLIST/
         │   ├── 00000.mpls
@@ -352,138 +352,138 @@ Place a BluRay movie folder in the raw directory:
             └── 00001.clpi
 ```
 
-### 2. Trigger Processing
+### 2. Запуск обработки
 
-Via Web UI:
-1. Open http://192.168.1.50:8081
-2. Click "Scan Directory"
-3. Monitor the progress
+Через Web UI:
+1. Откройте http://192.168.1.50:8081
+2. Нажмите "Сканировать директорию"
+3. Следите за прогрессом
 
-Via API:
+Через API:
 ```bash
 curl -X POST http://192.168.1.50:8080/api/tasks/scan
 ```
 
-### 3. Monitor Progress
+### 3. Мониторинг прогресса
 
 ```bash
-# Check task status
+# Проверка статуса задач
 curl http://192.168.1.50:8080/api/tasks
 
-# View logs
+# Просмотр логов
 cd nas-services && docker-compose logs -f
 cd mac-services && docker-compose logs -f worker
 ```
 
-## Monitoring and Maintenance
+## Обслуживание и мониторинг
 
-### Service Status
+### Статус сервисов
 ```bash
-# NAS services status
+# Статус NAS сервисов
 cd nas-services && docker-compose ps
 
-# Mac worker status  
+# Статус Mac worker  
 cd mac-services && docker-compose ps
 
-# View recent logs
+# Просмотр последних логов
 ./scripts/deploy-nas.sh logs
 ./scripts/deploy-mac.sh logs
 ```
 
-### Database Maintenance
-The system automatically cleans up old records, but you can trigger it manually:
+### Обслуживание базы данных
+Система автоматически очищает старые записи, но можно запустить вручную:
 ```bash
 curl -X POST http://192.168.1.50:8080/api/maintenance/cleanup
 ```
 
-### Log Rotation
-Logs are automatically rotated, but you can clear them manually:
+### Ротация логов
+Логи автоматически ротируются, но можно очистить вручную:
 ```bash
 ./scripts/reset-system.sh logs
 ```
 
-## Updating the System
+## Обновление системы
 
-### Pull Latest Changes
+### Получение последних изменений
 ```bash
 git pull origin main
 ```
 
-### Rebuild and Restart
+### Пересборка и перезапуск
 ```bash
-# On NAS
+# На NAS
 ./scripts/deploy-nas.sh
 
-# On Mac mini  
+# На Mac mini  
 ./scripts/deploy-mac.sh
 ```
 
-## Security Considerations
+## Соображения безопасности
 
-### Network Security
-- Keep both devices on a private network
-- Use strong passwords for SMB access
-- Consider VPN for remote access
+### Безопасность сети
+- Держите оба устройства в частной сети
+- Используйте надежные пароли для SMB доступа
+- Рассмотрите VPN для удаленного доступа
 
-### File Permissions
-- Ensure proper directory permissions
-- Use dedicated user accounts
-- Regularly audit access logs
+### Права на файлы
+- Обеспечьте правильные права на директории
+- Используйте выделенные учетные записи пользователей
+- Регулярно проверяйте логи доступа
 
-### Docker Security
-- Keep Docker updated
-- Use non-root users in containers
-- Limit container capabilities
+### Безопасность Docker
+- Держите Docker в актуальном состоянии
+- Используйте не-root пользователей в контейнерах
+- Ограничьте возможности контейнеров
 
-## Performance Tuning
+## Настройка производительности
 
-### Mac mini Optimization
+### Оптимизация Mac mini
 ```bash
-# Increase FFmpeg threads in .env
-FFMPEG_THREADS=8  # Set to CPU core count
+# Увеличение потоков FFmpeg в .env
+FFMPEG_THREADS=8  # Установите по количеству ядер CPU
 
-# Use faster preset for speed over quality
+# Используйте более быстрый preset для скорости
 FFMPEG_PRESET=fast
 ```
 
-### NAS Optimization
+### Оптимизация NAS
 ```bash
-# Increase scan frequency for faster detection
-SCAN_SCHEDULE="*/15 * * * *"  # Every 15 minutes
+# Увеличение частоты сканирования для быстрого обнаружения
+SCAN_SCHEDULE="*/15 * * * *"  # Каждые 15 минут
 
-# Adjust log levels for performance
+# Настройка уровней логирования для производительности
 LOG_LEVEL=WARNING
 ```
 
-## Backup and Recovery
+## Резервное копирование и восстановление
 
-### Configuration Backup
+### Резервное копирование конфигурации
 ```bash
-# Backup configuration files
+# Резервное копирование конфигурационных файлов
 tar -czf bluray-converter-config.tar.gz \
   nas-services/.env \
   mac-services/.env \
   nas-services/volumes/db/
 ```
 
-### Full System Reset
+### Полный сброс системы
 ```bash
-# Complete system reset
+# Полный сброс системы
 ./scripts/reset-system.sh
 
-# Restore from backup and redeploy
+# Восстановление из резервной копии и повторное развертывание
 ./scripts/deploy-nas.sh
 ./scripts/deploy-mac.sh
 ```
 
-## Next Steps
+## Следующие шаги
 
-After successful setup:
-1. Review [USAGE.md](USAGE.md) for daily operations
-2. Check [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for common issues
-3. Monitor the system for the first few processing cycles
-4. Set up regular backups of your configuration
+После успешной установки:
+1. Изучите [USAGE.md](USAGE.md) для ежедневных операций
+2. Проверьте [TROUBLESHOOTING.md](TROUBLESHOOTING.md) для распространенных проблем
+3. Следите за системой в течение первых нескольких циклов обработки
+4. Настройте регулярные резервные копии вашей конфигурации
 
 ---
 
-**Need Help?** Check the troubleshooting guide or review the connection test output for detailed diagnostics.
+**Нужна помощь?** Проверьте руководство по решению проблем или просмотрите вывод теста подключения для подробной диагностики.
