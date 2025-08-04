@@ -1,80 +1,80 @@
 # BluRay Converter
 
-Automated system for converting BluRay movies to MKV format using distributed processing between Synology NAS and Mac mini.
+Автоматическая система конвертации BluRay фильмов в формат MKV с использованием распределенной обработки между Synology NAS и Mac mini.
 
-## Overview
+## Описание
 
-This system automatically detects new BluRay movies on your NAS, converts them to MKV format on a Mac mini worker, and notifies you via Telegram when complete. It's designed for Plex media servers that don't natively support BDMV format.
+Система автоматически обнаруживает новые BluRay фильмы на вашем NAS, конвертирует их в формат MKV на Mac mini и отправляет уведомления через Telegram по завершении. Разработана для медиасерверов Plex, которые не поддерживают формат BDMV нативно.
 
-## Architecture
+## Архитектура
 
-- **NAS Services** (Synology): File watching, task management, web UI, Telegram notifications
-- **Mac Services** (Mac mini): Video processing, BDMV analysis, FFmpeg conversion
+- **NAS Сервисы** (Synology): Мониторинг файлов, управление задачами, веб-интерфейс, Telegram уведомления
+- **Mac Сервисы** (Mac mini): Обработка видео, анализ BDMV, конвертация через FFmpeg
 
-## Quick Start
+## Быстрый старт
 
-1. **NAS Setup**:
+1. **Настройка NAS**:
    ```bash
    cd nas-services
    cp .env.example .env
-   # Edit .env with your configuration
+   # Отредактируйте .env с вашими настройками
    ./scripts/deploy-nas.sh
    ```
 
-2. **Mac Setup**:
+2. **Настройка Mac**:
    ```bash
    cd mac-services
    cp .env.example .env
-   # Edit .env with your configuration
+   # Отредактируйте .env с вашими настройками
    ./scripts/deploy-mac.sh
    ```
 
-3. **Usage**:
-   - Copy BluRay movies to `/volume1/video/Кино/BluRayRAW/`
-   - System automatically processes them at 3 AM or via web UI
-   - Converted files appear in `/volume1/video/Кино/BluRayProcessed/`
+3. **Использование**:
+   - Скопируйте BluRay фильмы в `/volume1/video/Кино/BluRayRAW/`
+   - Система автоматически обработает их в 3 утра или через веб-интерфейс
+   - Конвертированные файлы появятся в `/volume1/video/Кино/BluRayProcessed/`
 
-## Features
+## Возможности
 
-- ✅ Automatic BluRay detection and conversion
-- ✅ Lossless remux (no quality loss)
-- ✅ Web management interface
-- ✅ Telegram notifications and bot commands
-- ✅ Distributed processing architecture
-- ✅ Error handling and retry logic
-- ✅ Complete Docker containerization
+- ✅ Автоматическое обнаружение и конвертация BluRay
+- ✅ Remux без потери качества
+- ✅ Веб-интерфейс управления
+- ✅ Telegram уведомления и команды бота
+- ✅ Распределенная архитектура обработки
+- ✅ Обработка ошибок и логика повторных попыток
+- ✅ Полная контейнеризация Docker
 
-## Documentation
+## Документация
 
-- [Setup Instructions](docs/SETUP.md)
-- [User Guide](docs/USAGE.md)
-- [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [Инструкции по установке](docs/SETUP.md)
+- [Руководство пользователя](docs/USAGE.md)
+- [Решение проблем](docs/TROUBLESHOOTING.md)
 
-## Requirements
+## Требования
 
-- Synology NAS with Docker support
-- Mac mini with Apple Silicon and Docker Desktop
-- Local network connectivity between devices
-- FFmpeg support
-- Telegram bot token (optional)
+- Synology NAS с поддержкой Docker
+- Mac mini с Apple Silicon и Docker Desktop
+- Локальная сеть между устройствами
+- Поддержка FFmpeg
+- Токен Telegram бота (по желанию)
 
-## Directory Structure
+## Структура директорий
 
 ```
 /volume1/video/Кино/
-├── BluRayRAW/          # Input: Place BluRay movies here
-├── BluRayProcessed/    # Output: Converted MKV files
-└── BluRayTemp/         # Temporary processing files
+├── BluRayRAW/          # Входные данные: Размещайте BluRay фильмы здесь
+├── BluRayProcessed/    # Выходные данные: Конвертированные MKV файлы
+└── BluRayTemp/         # Временные файлы обработки
 ```
 
-## Web Interface
+## Веб-интерфейс
 
-Access the management interface at `http://your-nas-ip:8080` to:
-- View processing queue
-- Monitor conversion progress  
-- Manually trigger scans
-- View processing history and statistics
+Доступ к интерфейсу управления по адресу `http://your-nas-ip:8081`:
+- Просмотр очереди обработки
+- Мониторинг прогресса конвертации
+- Ручной запуск сканирования
+- Просмотр истории обработки и статистики
 
-## License
+## Лицензия
 
-This project is for educational and personal use only.
+Данный проект предназначен только для образовательных и личных целей.
