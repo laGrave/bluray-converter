@@ -1,2 +1,296 @@
 /* BluRay Converter - Web UI Styles
    Main stylesheet for the management interface */
+
+/* Tailwind CSS via CDN - Custom additions */
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+/* Custom utility classes */
+.transition-all {
+    transition: all 0.3s ease;
+}
+
+/* Animation keyframes */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(-25%);
+        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+        transform: none;
+        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+}
+
+/* Custom component styles */
+.status-badge {
+    @apply px-3 py-1 text-xs font-medium rounded-full;
+}
+
+.status-pending {
+    @apply bg-yellow-100 text-yellow-800;
+}
+
+.status-processing {
+    @apply bg-blue-100 text-blue-800;
+}
+
+.status-completed {
+    @apply bg-green-100 text-green-800;
+}
+
+.status-failed {
+    @apply bg-red-100 text-red-800;
+}
+
+.status-sent {
+    @apply bg-purple-100 text-purple-800;
+}
+
+.status-retrying {
+    @apply bg-orange-100 text-orange-800;
+}
+
+/* Card hover effects */
+.card-hover {
+    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-1;
+}
+
+/* Button styles */
+.btn {
+    @apply px-4 py-2 rounded font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-primary {
+    @apply btn bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500;
+}
+
+.btn-secondary {
+    @apply btn bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-500;
+}
+
+.btn-success {
+    @apply btn bg-green-500 text-white hover:bg-green-600 focus:ring-green-500;
+}
+
+.btn-danger {
+    @apply btn bg-red-500 text-white hover:bg-red-600 focus:ring-red-500;
+}
+
+.btn-warning {
+    @apply btn bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-yellow-500;
+}
+
+.btn-disabled {
+    @apply btn bg-gray-300 text-gray-500 cursor-not-allowed;
+}
+
+/* Form controls */
+.form-input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500;
+}
+
+.form-select {
+    @apply form-input pr-8 bg-white;
+}
+
+.form-label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+/* Table styles */
+.table {
+    @apply min-w-full divide-y divide-gray-200;
+}
+
+.table-header {
+    @apply bg-gray-50;
+}
+
+.table-header-cell {
+    @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+}
+
+.table-row {
+    @apply hover:bg-gray-50 transition-colors duration-150;
+}
+
+.table-cell {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+}
+
+/* Modal styles */
+.modal-overlay {
+    @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50;
+}
+
+.modal-content {
+    @apply bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-screen overflow-y-auto;
+}
+
+.modal-header {
+    @apply px-6 py-4 border-b border-gray-200 flex items-center justify-between;
+}
+
+.modal-body {
+    @apply px-6 py-4;
+}
+
+.modal-footer {
+    @apply px-6 py-4 border-t border-gray-200 flex justify-end space-x-3;
+}
+
+/* Progress bar */
+.progress-bar {
+    @apply w-full bg-gray-200 rounded-full h-2;
+}
+
+.progress-fill {
+    @apply bg-blue-500 h-2 rounded-full transition-all duration-300;
+}
+
+/* Notification styles */
+.notification {
+    @apply fixed bottom-4 right-4 bg-white border border-gray-300 rounded-lg shadow-lg p-4 max-w-sm z-50;
+}
+
+.notification-success {
+    @apply border-green-300 bg-green-50;
+}
+
+.notification-error {
+    @apply border-red-300 bg-red-50;
+}
+
+.notification-warning {
+    @apply border-yellow-300 bg-yellow-50;
+}
+
+.notification-info {
+    @apply border-blue-300 bg-blue-50;
+}
+
+/* Chart container */
+.chart-container {
+    @apply relative w-full h-64;
+}
+
+/* Loading states */
+.loading-spinner {
+    @apply animate-spin rounded-full border-2 border-gray-200 border-t-blue-500;
+}
+
+.loading-pulse {
+    @apply animate-pulse bg-gray-200 rounded;
+}
+
+/* Responsive design helpers */
+.hide-mobile {
+    @apply hidden sm:block;
+}
+
+.show-mobile {
+    @apply block sm:hidden;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e0 #f7fafc;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f7fafc;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* Typography */
+.text-gradient {
+    background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Layout utilities */
+.container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Glassmorphism effect */
+.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .dark-mode {
+        @apply bg-gray-900 text-white;
+    }
+    
+    .dark-mode .bg-white {
+        @apply bg-gray-800;
+    }
+    
+    .dark-mode .text-gray-900 {
+        @apply text-gray-100;
+    }
+    
+    .dark-mode .text-gray-500 {
+        @apply text-gray-400;
+    }
+    
+    .dark-mode .border-gray-200 {
+        @apply border-gray-700;
+    }
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .print-break {
+        page-break-after: always;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    .container {
+        max-width: none;
+        padding: 0;
+    }
+}
